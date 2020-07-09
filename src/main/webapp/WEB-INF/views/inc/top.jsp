@@ -8,13 +8,13 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
-<title>Insert title here</title>
+<title>Herb Mall</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mainstyle.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/clear.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/layout.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mystyle.css"/>
 <script type="text/javascript" 
-	src="<c:url value='/resources/js/jquery-3.4.1.min.js'/>"></script>
+	src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
 
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -31,7 +31,7 @@
 	<div id="wrap">
 		<!-- header -->				
 		<header id="header">
-			<h1><a href="<c:url value='/index.jsp'/>">
+			<h1><a href="<c:url value='/index.do'/>">
 			<img alt="로고 이미지" src="${pageContext.request.contextPath}/resources/images/herbLogo7.jpg" height="95px" /></a></h1>
 			<nav id="headerRight">
 				<ul class="views">

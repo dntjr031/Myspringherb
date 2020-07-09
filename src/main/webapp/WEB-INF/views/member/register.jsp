@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/top.jsp" %>
 
-<script type="text/javascript" src="../js/member.js"></script>
+<script type="text/javascript" src='<c:url value="/resources/js/member.js"/>'></script>
 
 <style type="text/css">
 	.width_80{
@@ -14,7 +15,7 @@
 </style>
 <article>
 <div class="divForm">
-<form name="frm1" method="post" action="register_ok.jsp">
+<form name="frm1" method="post" action="<c:url value='/member/memberWrite.do'/>">
 <fieldset>
 	<legend>회원 가입</legend>
     <div>        

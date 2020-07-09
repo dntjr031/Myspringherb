@@ -1,7 +1,3 @@
-<%@page import="com.mymvc.board.model.BoardVO"%>
-<%@page import="java.sql.SQLException"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <style type = "text/css">
@@ -27,26 +23,26 @@
 	}
 </style>
 
-<%
+<%-- <%
 	BoardVO vo = new BoardVO();
 	List<BoardVO> list = (List<BoardVO>)request.getAttribute("list");
-%>
+%> --%>
 <div id = "divMainNotice">
 	<div>
-		<img src = "<%=request.getContextPath()%>/images/notice2.JPG" alt="공지사항">
+		<img src = "<%=request.getContextPath()%>/resources/images/notice2.JPG" alt="공지사항">
 		<span>
-			<a href = "<%=request.getContextPath()%>/board/list.jsp">
-				<img src = "<%=request.getContextPath() %>/images/more.JPG" alt = "more">
+			<a href = "<%=request.getContextPath()%>/resources/board/list.jsp">
+				<img src = "<%=request.getContextPath() %>/resources/images/more.JPG" alt = "more">
 			</a>
 		</span>
 	</div>
 	<div>
-		<img src = "<%=request.getContextPath()%>/images/Line.JPG"" alt = "line">
+		<img src = "<%=request.getContextPath()%>/resources/images/Line.JPG"" alt = "line">
 	</div>
 	<div>
 		<ul>
 		<!-- 반복 시작 -->
-			<%if(list == null || list.isEmpty()){%>
+			<%-- <%if(list == null || list.isEmpty()){%>
 				<li>공지사항이 없습니다.<li>
 			<%}else{
 				%>
@@ -57,7 +53,7 @@
 			<%}
 			System.out.println(request.getContextPath());
 			}%>
-			
+			 --%>
 		<!-- 반복 끝 -->
 		</ul>
 	</div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/top.jsp" %>
 <style type="text/css">
 .agree{
@@ -23,8 +24,8 @@
 </script>
 <article class="agree">
 	<h2>회원 약관</h2> <!-- iframe 이용 -->
-	<iframe src="provision.html" width="820" height="300"></iframe>
-	<form action="register.jsp" name="frmAgree" method="post">
+	<iframe src="<c:url value='/inc2/provision.html'/>" width="820" height="300"></iframe>
+	<form action="<c:url value='/member/register.do'/>" name="frmAgree" method="post">
 		<div class="align_right">
 			<input type="checkbox" name="chkAgree" id="chkAgree">
 			<label for="chkAgree">약관에 동의합니다.</label>

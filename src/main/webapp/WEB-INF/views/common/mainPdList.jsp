@@ -1,18 +1,13 @@
-<%@page import="com.mymvc.pd.model.PdDTO"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="java.util.List"%>
-<%@page import="java.sql.SQLException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%
+<%-- <%
 	
 	List<PdDTO> pdList = (List<PdDTO>) request.getAttribute("pdList");
 
 	DecimalFormat df = new DecimalFormat("#,###");
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-%>
+%> --%>
 <h1>상품 목록</h1>
 <table border="1" style="width:500px">
 	<tr>
@@ -22,7 +17,7 @@
 		<th>등록일</th>
 	</tr>
 	<!-- 반복 시작 -->
-	<%
+	<%-- <%
 		if(pdList != null && !pdList.isEmpty()){
 		for(int i=0;i<pdList.size();i++){
 			PdDTO dto=pdList.get(i);%>
@@ -36,7 +31,7 @@
 			</tr>
 	<%	}//for
 	}
-	%>
+	%> --%>
 	<!-- 반복 끝 -->
 </table>
 <hr>

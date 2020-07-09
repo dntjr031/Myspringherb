@@ -1,6 +1,5 @@
 package com.will.herb.board.model;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.will.herb.common.SearchVO;
