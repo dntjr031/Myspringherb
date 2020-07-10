@@ -5,6 +5,42 @@
 var contextPath = "/herb";
 
 $(function(){
+	
+	$("form[name=frm1]").submit(function() {
+		
+		var isNecessary = false;
+		
+		$(".necessary").each(function() {
+			if($(this).val() == ''){
+				alert($(this).prev().html() + "를 입력하셔야 합니다.");
+				$(this).focus();
+				isNecessary = true;
+				event.preventDefault();
+				return false;
+			}
+		});
+		
+		if(isNecessary){
+			event.preventDefault();
+			return false;
+		}
+		
+		if($("#pwd").val() != $("#pwd2").val()){
+			alert("비밀번호가 일치하지 않습니다.");
+			$("#pwd2").focus();
+			event.preventDefault();
+			return false;
+		}
+		
+		if($("#chkId").val() != 'Y'){
+			alert("중복확인을 해야합니다.");
+			$("#userid").focus();
+			event.preventDefault();
+			return false;
+		}
+		
+	});
+	
 	$("#email2").change(function(){
 		if($(this).val() == "etc"){
 			$("#email3").css("visibility", "visible");

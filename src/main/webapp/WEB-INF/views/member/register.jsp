@@ -4,7 +4,6 @@
 <%@ include file="../inc/top.jsp" %>
 
 <script type="text/javascript" src='<c:url value="/resources/js/member.js"/>'></script>
-
 <style type="text/css">
 	.width_80{
 		width:80px;
@@ -20,21 +19,21 @@
 	<legend>회원 가입</legend>
     <div>        
         <label for="name">성명</label>
-        <input type="text" name="name" id="name" style="ime-mode:active">
+        <input type="text" name="name" id="name" style="ime-mode:active" class="necessary">
     </div>
     <div>
         <label for="userid">회원ID</label>
-        <input type="text" name="userid" id="userid"
+        <input type="text" name="userid" id="userid" class="necessary"
         		style="ime-mode:inactive">&nbsp;
         <input type="button" value="중복확인" id="btnChkId" title="새창열림">
     </div>
     <div>
         <label for="pwd">비밀번호</label>
-        <input type="Password" name="pwd" id="pwd">
+        <input type="Password" name="pwd" id="pwd" class="necessary">
     </div>
     <div>
         <label for="pwd2">비밀번호 확인</label>
-        <input type="Password" name="pwd2" id="pwd2">
+        <input type="Password" name="pwd2" id="pwd2" >
     </div>
     <div>
         <label for="zipcode">주소</label>
@@ -79,7 +78,7 @@
     </div>
 </fieldset>
 
-    <input type ="hidden" name="chkId" id="chkId">
+    <input type ="text" name="chkId" id="chkId">
         
 </form>
 </div>

@@ -3,6 +3,7 @@ package com.will.herb.member.controller;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,19 +50,20 @@ public class LoginController {
 		if(result == MemberService.LOGIN_OK) {
 			
 			//쿠키처리
-			if("on".equals(saveId)) {
-				Cookie ck1 = new Cookie("userid", userid);
+			if(saveId != null) {
+				Cookie ck1 = new Cookie("ck_userid", userid);
+				logger.info("쿠키 저장 userid={}",userid);
 				
 				ck1.setMaxAge(60*60*24*7);
-				
 				response.addCookie(ck1);
 				
 			}else {
 				Cookie[] cookies = request.getCookies();           
 
 				for(int i = 0 ; i<cookies.length; i++){                     
-				cookies[i].setMaxAge(0);
-				response.addCookie(cookies[i]);       
+					cookies[i].setMaxAge(0);
+					response.addCookie(cookies[i]);       
+					logger.info("쿠키 삭제 cookies[{}]={}",i,cookies[i]);
 
 				}
 
@@ -69,8 +71,10 @@ public class LoginController {
 			
 			// 세션처리
 			MemberVO vo = service.selectMember(userid);
+			logger.info("회원정보 조회 결과 vo={}",vo);
 			request.getSession().setAttribute("userid", userid);
 			request.getSession().setAttribute("name", vo.getName());
+			logger.info("세션에 저장 userid={}, name={}",userid,vo.getName());
 			
 			msg = userid + "님 로그인 되었습니다.";
 			url = "/index.do";
@@ -86,4 +90,13 @@ public class LoginController {
 		return "common/message";
 	}
 	
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		logger.info("로그아웃 처리");
+		
+		session.invalidate();
+		logger.info("session 초기화, 로그아웃 완료!");
+		
+		return "redirect:/index.do";
+	}
 }

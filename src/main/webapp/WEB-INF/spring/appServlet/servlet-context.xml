@@ -37,5 +37,14 @@
 	     <beans:property name="order" value="0" />
 	</beans:bean>
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/memberEdit.do"/>
+			<mapping path="/member/memberOut.do"/>
+			<mapping path="/shop/cart/*"/>
+			<mapping path="/shop/order/*"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

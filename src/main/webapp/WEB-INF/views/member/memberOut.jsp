@@ -20,7 +20,7 @@
 <article class="simpleForm">
 	<h2>회원탈퇴</h2>
 	<p class="p">회원탈퇴하시겠습니까?</p>
-	<form action="memberOut_ok.jsp" name="frmOut" method="post">
+	<form action="<c:url value='/member/memberOut.do'/>" name="frmOut" method="post">
 		<div>
 			<label for="pwd">비밀번호</label>
 			<input type="password" id="pwd" name="pwd">

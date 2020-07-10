@@ -24,6 +24,19 @@
 	<select id="selectMember" parameterType="string" resultType="membervo">
 		select * from member2 where userid = #{userid}
 	</select>
+	
+	<update id="updateMember" parameterType="membervo">
+		update member2
+		set zipcode=#{zipcode}, address=#{address}, addressdetail=#{addressDetail}, 
+		hp1=#{hp1}, hp2=#{hp2}, hp3=#{hp3}, email1=#{email1}, email2=#{email2}
+		where userid=#{userid}
+	</update>
+	
+	<update id="memberOut" parameterType="String">
+		update member2
+		set outdate = sysdate
+		where userid = #{userid}
+	</update>
 </mapper>
 
 

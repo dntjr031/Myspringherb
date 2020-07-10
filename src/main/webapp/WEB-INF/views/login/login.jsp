@@ -31,7 +31,7 @@
 			<legend>로그인</legend>
 			<div>
 				<label for="userid" class="label">아이디</label>
-				<input type="text" name="userid" id="userid" value="${cookie.userid.value}">
+				<input type="text" name="userid" id="userid" value="${cookie.ck_userid.value}">
 			</div>
 			<div>
 				<label for="pwd" class="label">비밀번호</label>
@@ -40,7 +40,7 @@
 			<div class=align_center>
 				<input type="submit" value="로그인">
 				<input type="checkbox" name="saveId" id="chkId"
-				<c:if test="${!empty cookie.userid.value }">
+				<c:if test="${!empty cookie.ck_userid }">
 					checked="checked"
 				</c:if>
 				>
