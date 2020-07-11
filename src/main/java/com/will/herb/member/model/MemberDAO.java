@@ -8,4 +8,8 @@ public interface MemberDAO {
 	public String selectPwd(String userid);
 	
 	public MemberVO selectMember(String userid);
+	
+	public int updateMember(MemberVO vo);
+	
+	public int memberOut(String userid);
 }

@@ -18,4 +18,8 @@ public interface MemberService {
 	int loginCheck(String userid, String pwd);
 	
 	public MemberVO selectMember(String userid);
+	
+	public int updateMember(MemberVO vo);
+	
+	public int memberOut(String userid);
 }

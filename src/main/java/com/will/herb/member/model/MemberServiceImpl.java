@@ -38,22 +38,20 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			result = ID_NONE;
 		}
-		
+
 		return result;
 	}
-	
+
 	public MemberVO selectMember(String userid) {
 		return memberDao.selectMember(userid);
 	}
 
-	/*
-	 * public MemberVO selectMember(String userid) throws SQLException { return
-	 * memberDao.selectMember(userid); }
-	 * 
-	 * public int updateMember(MemberVO vo) throws SQLException { return
-	 * memberDao.updateMember(vo); }
-	 * 
-	 * public int memberOut(String userid) throws SQLException { return
-	 * memberDao.memberOut(userid); }
-	 */
+	public int updateMember(MemberVO vo) {
+		return memberDao.updateMember(vo);
+	}
+
+	public int memberOut(String userid) {
+		return memberDao.memberOut(userid);
+	}
+
 }
