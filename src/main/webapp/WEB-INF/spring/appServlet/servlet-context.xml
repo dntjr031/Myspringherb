@@ -45,6 +45,11 @@
 			<mapping path="/shop/order/*"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
+		<interceptor>
+			<mapping path="/admin/**"/>
+			<exclude-mapping path="/admin/login/adminLogin.do"/>
+			<beans:ref bean="loginAdminInterceptor"/>
+		</interceptor>
 	</interceptors>
 	
 </beans:beans>

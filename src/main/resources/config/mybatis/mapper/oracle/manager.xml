@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="config.mybatis.mapper.oracle.manager">
+	<select id="selectDup" resultType="int" parameterType="String" >
+		select count(*) from MANAGERS where userid=#{userid}
+	</select>
+	
+	<insert id="insertMgr" parameterType="managerVo" >
+		<selectKey order="BEFORE" resultType="int" keyProperty="no" >
+			select managers_seq.nextval from dual
+		</selectKey>
+		insert into managers(no, userid, name, pwd, authcode)
+		values(#{no},#{userid},#{name},#{pwd},#{authCode})
+	</insert>
+	
+	<select id="selectPwd" parameterType="String" resultType="String">
+		select pwd from managers where userid=#{userid}
+	</select>
+	
+	<select id="selectMgr" parameterType="String" resultType="managerVo">
+		select * from managers where userid=#{userid}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+

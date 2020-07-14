@@ -25,6 +25,13 @@ $(function(){
 			return false;
 		}
 		
+		if(!validate_userid($("#userid").val())){
+			alert("아이디는 문자, 숫자 또는 '_' 만 올 수 있습니다.");
+			$("#userid").focus();
+			event.preventDefault();
+			return false;
+		}
+		
 		if($("#pwd").val() != $("#pwd2").val()){
 			alert("비밀번호가 일치하지 않습니다.");
 			$("#pwd2").focus();
@@ -57,7 +64,6 @@ $(function(){
 		var userid = $('#userid').val();
 		window.open(contextPath + "/member/checkUserid.do?userid=" + userid, "chk", "height = 300, width = 450, resizable = yes, scrollbar= yes")
 	});
-
 
 });
 

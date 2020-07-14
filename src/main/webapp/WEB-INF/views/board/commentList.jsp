@@ -1,12 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 
-<%
-	List<CommentVO> cList = (List<CommentVO>)request.getAttribute("cList");
-	
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	%>
 
-
+<%-- 
 <%
 		if(cList != null && !cList.isEmpty()){%>
 			<table  border = "1" style = "width: 500px">
@@ -23,3 +18,4 @@
 			</table>
 		<%}
 	%>
+ --%>

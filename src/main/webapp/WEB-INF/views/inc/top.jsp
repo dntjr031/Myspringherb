@@ -8,7 +8,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
-<title>Herb Mall</title>
+<title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mainstyle.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/clear.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/layout.css" />
@@ -81,10 +81,12 @@
 				<dl id="leftNavi">
 					<!-- category list -->
 					<dt>허브</dt>
-					<dd><a href="default.jsp">허브차</a></dd>
+					<!-- <dd><a href="default.jsp">허브차</a></dd>
 					<dd><a href="default.jsp">아로마 오일</a></dd>
 					<dd><a href="default.jsp">향초</a></dd>
-					<dd><a href="default.jsp">허브비누</a></dd>
+					<dd><a href="default.jsp">허브비누</a></dd> -->
+					<c:import url="/inc/categoryList.do"></c:import>
+					
 				</dl>
 			</nav>
 			<section id="contents">
