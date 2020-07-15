@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../../inc/adminTop.jsp" %>
 <style type="text/css">
 	caption{
@@ -23,27 +22,79 @@
 	}
 
 </style>
+<script type="text/javascript">
+	$(function() {
+		$("#btMultiDel").click(function() {
+			var len = $("tbody input[type=checkbox]:checked").length;
+			if(len == 0){
+				alert("삭제하려는 상품을 먼저 체크하세요");
+				return;
+			}
+			$("form[name=frmList]").prop("action","<c:url value='/admin/product/deleteMulti.do' />");
+			$("form[name=frmList]").submit();
+		});
+		
+		$("#btMultiAdd").click(function() {
+			var len = $("tbody input[type=checkbox]:checked").length;
+			if(len == 0){
+				alert("삭제하려는 상품을 먼저 체크하세요");
+				return;
+			}
+			if($("select[name=eventSel]").val().length < 1){
+				alert("이벤트를 선택하세요");
+				return;
+			}
+			$("form[name=frmList]").prop("action","<c:url value='/admin/product/eventMulti.do' />");
+			$("form[name=frmList]").submit();
+		});
+		
+		$("input[name=chkAll]").click(function() {
+			$("tbody input[type=checkbox]").prop("checked", this.checked);
+		});
+	});
+
+	function boardList(curPage) {
+		$("input[name=currentPage]").val(curPage);
+		$("form[name=frmPage]").submit();
+	}
+</script>
 	
 <h2>상품 목록</h2>
-
-
+<c:if test="${!empty param.eventName }">
+	<p>${param.eventName } 상품 ${pagingInfo.totalRecord }건입니다.</p>
+</c:if>
+<c:if test="${empty param.eventName }">
+	<p>전체 상품 ${pagingInfo.totalRecord }건입니다.</p>
+</c:if>
 <!-- 페이징 처리를 위한 form 시작-->
-<form name="frmPage" method="post">
-	<input type="hidden" name="eventName" 	value="">
+<form name="frmPage" method="post" action="<c:url value='/admin/product/productList.do'/>">
+	<input type="hidden" name="eventName" 	value="${param.eventName }">
 	<input type="hidden" name="currentPage">	
 </form>
 <!-- 페이징 처리 form 끝 -->
 
-<form name="frmList" method="post" >
+<form name="frmList" method="post" action="<c:url value='/admin/product/productList.do'/>">
 <div class="divRight">	
 	이벤트 상품 조회
 	<select name="eventName">
 		<option value=""></option>
-		<option value="NEW" >신상품</option>
-		<option value="BEST">인기상품</option>
-		<option value="MD">MD추천상품</option>				
+		<option value="NEW" 
+			<c:if test="${param.eventName == 'NEW'}">
+				selected="selected"
+			</c:if>
+		>신상품</option>
+		<option value="BEST"
+			<c:if test="${param.eventName == 'BEST'}">
+				selected="selected"
+			</c:if>
+		>인기상품</option>
+		<option value="MD"
+			<c:if test="${param.eventName == 'MD'}">
+				selected="selected"
+			</c:if>
+		>MD추천상품</option>				
 	</select>
-	<input type ="image" src="<c:url value='/images/bt_search3.png'/>" 
+	<input type ="image" src="<c:url value='/resources/images/bt_search3.png'/>" 
 		align="absmiddle" onclick="" >		
 </div>
 <div class="divList">
@@ -61,7 +112,7 @@
 	</colgroup>
 	<thead>
 	  <tr>
-		<th><input type="checkbox" name="chkAll" onclick="checkedAll()"></th>
+		<th><input type="checkbox" name="chkAll"></th>
 		<th scope="col">상품이미지</th>
 		<th scope="col">상품이름</th>
 		<th scope="col">가격</th>
@@ -72,33 +123,61 @@
 	</thead> 
 	<tbody>  
 	
+	<c:if test="${empty list }">
+		<tr>
+			<td colspan="7">상품이 없습니다.</td>
+		</tr>
+	</c:if>
+	<c:if test="${!empty list }">
 	<!-- 반복 시작 -->
-	
+		<c:set value="0" var="idx"></c:set>
+		<c:forEach var="prod" items="${list }">
+			<tr>
+				<td>
+					<input type="checkbox" name="pdItems[${idx }].productNo" value="${prod.productNo }">
+					<input type="hidden" name="pdItems[${idx }].imageURL" value="${prod.imageURL}">
+				</td>
+				<td><a href="">
+					<img alt="${prod.productName }" src="<c:url value='/pd_images/${prod.imageURL}'/>">
+				</a></td>
+				<td class="align_left">${prod.productName }</td>
+				<td class="align_rihgt">
+					<fmt:formatNumber value="${prod.sellPrice }" pattern="#,###"/>원
+				</td>
+				<td>
+				<fmt:formatDate value="${prod.regDate }" pattern="yyyy-MM-dd"/> 
+				</td>
+				<td><a href="#">수정</a></td>
+				<td><a href="#">삭제</a></td>
+			</tr>
+			<c:set value="${idx + 1 }" var="idx"></c:set>
+		</c:forEach>
 	<!-- 반복 끝 -->
+	</c:if>
 	</tbody>
 </table>
 </div>
 <div class="divPage">
 	<!-- 페이지 번호 추가 -->		
-	<c:if test="${pagingInfo.firstPageNo>1 }">
-		<a href="#" onclick="boardList(${pagingInfo.firstPageNo-1})">			
+	<c:if test="${pagingInfo.firstPage>1 }">
+		<a href="#" onclick="boardList(${pagingInfo.firstPage-1})">			
 		    <img src='<c:url value="/images/first.JPG" />'  border="0">	</a>
 	</c:if>
 					
 	<!-- [1][2][3][4][5][6][7][8][9][10] -->
-	<c:forEach var="i" begin="${pagingInfo.firstPageNo }" end="${pagingInfo.lastPageNo }">
-		<c:if test="${i==pagingInfo.currentPageNo }">
+	<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
+		<c:if test="${i==pagingInfo.currentPage }">
 			<span style="color:blue;font-weight:bold">${i }</span>
 		</c:if>
-		<c:if test="${i!=pagingInfo.currentPageNo }">						
+		<c:if test="${i!=pagingInfo.currentPage }">						
 			<a href="#" onclick="boardList(${i})">
 				[${i }]
 			</a>
 		</c:if>		
 	</c:forEach>
 	
-	<c:if test="${pagingInfo.lastPageNo<pagingInfo.totalPageCount }">
-		<a href="#" onclick="boardList(${pagingInfo.lastPageNo+1})">			
+	<c:if test="${pagingInfo.lastPage<pagingInfo.totalPage }">
+		<a href="#" onclick="boardList(${pagingInfo.lastPage+1})">			
 			<img src="<c:url value="/images/last.JPG" />" border="0">
 		</a>
 	</c:if>
@@ -106,7 +185,7 @@
 </div>
 
 <div class="divRight">
-	<input type="button" value="선택한 상품 삭제" onclick="deleteMulti()"><br><br>
+	<input type="button" value="선택한 상품 삭제" id="btMultiDel"><br><br>
 	선택한 상품을
 	<select name="eventSel">
 		<option value=""></option>
@@ -114,7 +193,7 @@
 		<option value="BEST">인기상품으로</option>
 		<option value="MD">MD추천상품으로</option>
 	</select>
-	<input type="button" value="등록" onclick="eventMulti()">
+	<input type="button" value="등록" id="btMultiAdd">
 </div>
 </form>
 

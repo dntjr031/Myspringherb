@@ -23,11 +23,16 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Component
 public class FileUploadUtil {
+	
 	private Logger logger = LoggerFactory.getLogger(FileUploadUtil.class);
+	
 	@Resource(name = "fileUploadProperties")
 	Properties fileUploadProps;
 	
-	public List<Map<String, Object>> fileUpload(HttpServletRequest request) {
+	public static final int PATH_PDS=1; //자료실 사용
+	public static final int PATH_PD_IMAGE=2; //상품 업로드시 사용
+	
+	public List<Map<String, Object>> fileUpload(HttpServletRequest request, int pathGb) {
 		//파일 업로드 처리 메서드
 		MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest)request;
 		
@@ -48,7 +53,7 @@ public class FileUploadUtil {
 				//변경된 파일 명 구하기
 				String fileName = getUniqueFileName(originalFName);
 				//업로드 처리
-				String upPath = getUploadPath(request);
+				String upPath = getUploadPath(request, pathGb);
 				File file = new File(upPath, fileName);
 				try {
 					tempFile.transferTo(file);
@@ -70,18 +75,35 @@ public class FileUploadUtil {
 		
 		return resultList;
 	}
-	public String getUploadPath(HttpServletRequest request){
+	public String getUploadPath(HttpServletRequest request, int pathGb){
+		
 		String type = fileUploadProps.getProperty("file.upload.type");
 		//=>test, deploy
 		String uploadPath = "";
-		if(type.equals("test")) {	//테스트시
-			uploadPath = fileUploadProps.getProperty("file.upload.path.test");
-		}else {	//deploy-배포시
-			//실제 물리적인 경로 구하기
-			uploadPath = fileUploadProps.getProperty("file.upload.path");
-			HttpSession session = request.getSession();
-			uploadPath = session.getServletContext().getRealPath(uploadPath);
-		}
+		String key = "";
+		
+		if(type.equals("test")) { //테스트시
+	         if(pathGb==PATH_PDS) {
+	            key="file.upload.path.test";
+	         }else if(pathGb==PATH_PD_IMAGE) {
+	            key="imageFile.upload.path.test";
+	         }
+	         
+	         uploadPath=fileUploadProps.getProperty(key);
+	      }else { //deploy-배포시
+	         if(pathGb==PATH_PDS) {
+	            key="file.upload.path";
+	         }else if(pathGb==PATH_PD_IMAGE) {
+	            key="imageFile.upload.path";
+	         }
+
+	         uploadPath=fileUploadProps.getProperty(key);
+	         //실제 물리적인 경로 구하기
+	         HttpSession session=request.getSession();
+	         uploadPath
+	            =session.getServletContext().getRealPath(uploadPath);
+	      }
+
 		logger.info("type={}, uploadpath={}", type, uploadPath);
 		
 		return uploadPath;

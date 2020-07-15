@@ -18,7 +18,63 @@
 		where productNo=#{productNo}
 	</select>
 	
+	<insert id="insertProduct" parameterType="productVo">
+		<selectKey keyProperty="productNo" order="BEFORE" resultType="int" >
+			select PRODUCTS_SEQ.nextval from dual
+		</selectKey>
+		insert into products(PRODUCTNO,CATEGORYNO,PRODUCTNAME,SELLPRICE,COMPANY,
+		IMAGEURL,EXPLAINS,DESCRIPTION,MILEAGE)
+		values(#{productNo},#{categoryNo},#{productName},#{sellPrice},#{company},#{imageURL},
+		#{explains},#{description},#{mileage})
+	</insert>
 	
+	<select id="selectProdurctAll" parameterType="eventProductVo" resultType="productVo">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from(
+		        <if test="eventName == null or eventName == ''">
+		        select * from products
+		        </if>
+		        <if test="eventName != null and eventName != ''">
+		        	select * from PRODUCTEVENTVIEW
+		        	where EVENTNAME=#{eventName}
+		        </if>
+		    )A    
+		)
+		<![CDATA[ 
+		where RNUM>#{firstRecordIndex}
+		  and RNUM<=#{firstRecordIndex }+ #{recordCountPerPage}]]>
+	</select>
+	
+	<select id="getTotalRecord" parameterType="eventProductVo" resultType="int">
+		<if test="eventName == null or eventName == ''">
+        	select count(*) from products
+        </if>
+        <if test="eventName != null and eventName != ''">
+        	select count(*) from PRODUCTEVENTVIEW
+        	where EVENTNAME=#{eventName}
+        </if>
+	</select>
+	
+	<delete id="deleteProduct" parameterType="int">
+		delete from products
+		where PRODUCTNO = #{productNo}
+	</delete>
+	
+	<insert id="insertEventPd" parameterType="eventProductVo">
+		<selectKey order="BEFORE" resultType="int" keyProperty="eventProductNo">
+			select EVENTPRODUCT_SEQ.nextval from dual
+		</selectKey>
+		insert into EVENTPRODUCT
+		values(#{eventProductNo},#{productNo},#{eventName})
+	</insert>
+	
+	<select id="selectEventForPdNo" parameterType="eventProductVo" resultType="int">
+		select count(*) from EVENTPRODUCT
+		where eventname=#{eventName} and PRODUCTNO=#{productNo}
+	</select>
 </mapper>
 
 
