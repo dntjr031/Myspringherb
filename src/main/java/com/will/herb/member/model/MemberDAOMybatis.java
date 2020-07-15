@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MemberDAOMybatis implements MemberDAO {
 	
-	private static final String namespace = "config.mybatos.mapper.oracle.member.";
+	private static final String namespace = "config.mybatis.mapper.oracle.member.";
 	
 	@Autowired
 	SqlSessionTemplate sqlSession;

@@ -4,12 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>default.jsp</title>
 </head>
 <body>
-<%
-	session.invalidate();
-	response.sendRedirect("../index.jsp");
-%>
+<jsp:forward page="/index.do"></jsp:forward>
 </body>
 </html>

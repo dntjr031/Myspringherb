@@ -94,7 +94,8 @@ public class LoginController {
 	public String logout(HttpSession session) {
 		logger.info("로그아웃 처리");
 		
-		session.invalidate();
+		session.removeAttribute("userid");
+		session.removeAttribute("name");
 		logger.info("session 초기화, 로그아웃 완료!");
 		
 		return "redirect:/index.do";

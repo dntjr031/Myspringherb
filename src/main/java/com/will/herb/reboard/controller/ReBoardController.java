@@ -51,7 +51,7 @@ public class ReBoardController {
 		logger.info("글 등록, 파라미터 vo={}", reBoardVo);
 		
 		//파일 업로드 처리
-		List<Map<String, Object>> list = fileUploadUtil.fileUpload(request);
+		List<Map<String, Object>> list = fileUploadUtil.fileUpload(request, FileUploadUtil.PATH_PDS);
 		
 		String fileName = "", originalFileName = "";
 		long fileSize = 0;
@@ -205,7 +205,7 @@ public class ReBoardController {
 		//1
 		logger.info("수정처리 파라미터 vo={}", reBoardVo);
 		//파일 업로드 처리
-				List<Map<String, Object>> list = fileUploadUtil.fileUpload(request);
+				List<Map<String, Object>> list = fileUploadUtil.fileUpload(request, FileUploadUtil.PATH_PDS);
 				
 				String fileName = "", originalFileName = "";
 				long fileSize = 0;
@@ -227,7 +227,7 @@ public class ReBoardController {
 			int cnt=reBoardService.updateReBoard(reBoardVo);
 			if(cnt>0) {
 				if(oldFileName != null && !oldFileName.isEmpty()) {
-					String upPath = fileUploadUtil.getUploadPath(request);
+					String upPath = fileUploadUtil.getUploadPath(request, FileUploadUtil.PATH_PDS);
 					File file = new File(upPath, oldFileName);
 					if(file.exists()) {
 						boolean bool=file.delete();
@@ -293,7 +293,7 @@ public class ReBoardController {
 			//파일이 첨부된 경우 파일 삭제 처리
 			String oldFileName = reBoardVo.getFileName();
 			if(oldFileName != null && !oldFileName.isEmpty()) {
-				String upPath = fileUploadUtil.getUploadPath(request);
+				String upPath = fileUploadUtil.getUploadPath(request, FileUploadUtil.PATH_PDS);
 				File file = new File(upPath, oldFileName);
 				if(file.exists()) {
 					boolean bool=file.delete();
@@ -328,7 +328,7 @@ public class ReBoardController {
 		int cnt = reBoardService.updateDownCount(no);
 		
 		//다운로드 처리를 위한 페이지로 넘겨준다
-		String upPath = fileUploadUtil.getUploadPath(request);
+		String upPath = fileUploadUtil.getUploadPath(request, FileUploadUtil.PATH_PDS);
 		File file = new File(upPath, fileName);
 		
 		//3.
