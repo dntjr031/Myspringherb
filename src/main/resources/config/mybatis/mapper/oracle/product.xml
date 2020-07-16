@@ -41,6 +41,7 @@
 		        	select * from PRODUCTEVENTVIEW
 		        	where EVENTNAME=#{eventName}
 		        </if>
+		        order by PRODUCTNO desc
 		    )A    
 		)
 		<![CDATA[ 

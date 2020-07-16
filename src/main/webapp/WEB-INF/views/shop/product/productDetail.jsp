@@ -64,6 +64,12 @@
 			window.open("<c:url value='/shop/product/productImage.do?imageURL=${vo.imageURL}&productName=${vo.productName}'/>",
 				"bigImg","width=400,height=500,left=0,top=0,location=yes,resizable=yes");			
 		});
+		
+		$("form[name=frmPd] input[type=button]").click(function() {
+			var mode = $(this).attr('id');
+			$("form[name=frmPd]").prop("action","<c:url value='/shop/cart/cartAdd.do?mode="+mode+"' />");
+			$("form[name=frmPd]").submit();
+		});
 	});
 </script>
 
@@ -82,7 +88,7 @@
 		 	큰이미지 보기</a></p>
 	</div>
 	<div id="viewPd">
-		<form name="frmPd">			
+		<form name="frmPd" method="post">			
 			<!-- 상품명 -->
 			<p class="line2">
 				<span class="boldF">
@@ -107,16 +113,17 @@
 			</p>
 		
 			<p class="line">
+			<input type="hidden" name="productNo" id="pdNo" value="${vo.productNo }">
 				<span class="sp1">
 				<img src="<c:url value='/resources/images/dot2.JPG'/>"> 
 				구매수량</span>
 				<label for="qty">
-					<input type="text" name="qty" id="qty" value="1" >
+					<input type="text" name="quantity" id="qty" value="1" >
 				</label>
 			</p>
 			<p class="center">
-				<input type="button" value="바로구매" >
-				<input type="button" value="장바구니담기">
+				<input type="button" id="order" value="바로구매" >
+				<input type="button" id="cart" value="장바구니담기">
 			</p>
 		</form>
 	</div>
