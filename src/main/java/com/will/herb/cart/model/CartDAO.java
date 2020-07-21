@@ -10,4 +10,5 @@ public interface CartDAO {
 	List<Map<String, Object>> selectCartView(String customerId);
 	int deleteCart(int cartNo);
 	int updateCart(CartVO vo);
+	int deleteCartByUserid(String userid);
 }

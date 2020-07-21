@@ -65,8 +65,49 @@
 </style>
 
 <script type="text/javascript">
-	window.onload = function() {
-		//setAddress();
+
+	$(function() {
+		$.setAddress();
+		$("input[name=delivery]").click(function() {
+			$.setAddress();
+		});
+		
+		$("form[name=frm1]").submit(function() {
+			$(".infoBox").each(function() {
+				if($(this).val().length < 1){
+					alert($(this).prevAll("label").html()+"을 입력하세요!");
+					$(this).focus();
+					event.preventDefault();
+					return false;
+				}
+			});
+		});
+		
+		$('#btZipcode').click(function(){
+			var contextPath = "/herb";
+			window.open(contextPath + "/zipcode/zipcode.do?currentPage=" + "1", 
+					"zip", "height = 500, width = 600, resizable = yes, location= yes");
+		});
+	});
+	
+	$.setAddress = function() {
+		if($("#delivery1").is(":checked")){
+			$("#customerName").val($("#oName").html());
+			$("#zipcode").val($("#oZipcode").html());
+			$("input[name=address]").val($("#oAddress1").html());
+			$("input[name=addressDetail]").val($("#oAddress2").html());
+			if($("#oHp1").html() == null || $("#oHp1").html() != ''){
+				var hp = $("#oHp1").html() + "-" + $("#oHp2").html() + "-" + $("#oHp3").html();
+				$("#hp").val(hp);
+			}
+			
+		}else{
+			$("#customerName").val("");
+			$("#zipcode").val("");
+			$("input[name=address]").val("");
+			$("input[name=addressDetail]").val("");
+			$("#hp").val("");
+		}
 	}
 
 	function send(frm) {
@@ -89,13 +130,6 @@
 		return true;
 	}
 
-	function getZipcode() {
-		//우편번호 찾기 창 띄우기
-		//window.open("url", "name", "option");
-		window.open("${pageContext.request.contextPath}/member/zipcode.do",
-						"zipWin",
-						"left=50, top=20, width=500, height=500, scrollbars=yes,resizable=yes");
-	}
 </script>
 <p class="titleP">
 	<img src="<c:url value='/resources/images/dotLong3.JPG'/>"
@@ -104,7 +138,7 @@
 </p>
 
 <div>
-	<table class="cartListTbl box2"
+<table class="cartListTbl box2"
 		summary="장바구니 목록에 관한 표로써, 상품명,가격, 수량, 금액 등의 정보를 제공합니다.">
 		<caption>장바구니 목록</caption>
 		<colgroup>
@@ -134,7 +168,7 @@
 				<c:set var="delivery" value="2500" />
 				<c:forEach var="map" items="${list }">
 					<tr class="align_center">
-						<td class="align_left"><img alt="${map['PRODUCTNAME'] }"
+						<td class="align_center"><img alt="${map['PRODUCTNAME'] }"
 							width="40px" align="absmiddle"
 							src="<c:url value='/pd_images/${map["IMAGEURL"] }' />"> <a
 							href="<c:url value='/shop/product/productDetail.do?productNo=${map["PRODUCTNO"] }'/>">
@@ -172,7 +206,7 @@
 </div>
 <br />
 <div class="divForm">
-	<form name="frm1" method="post" action="" onsubmit="return send(this)">
+	<form name="frm1" method="post" action="<c:url value='/shop/order/orderSheet.do'/>">
 		<fieldset>
 			<legend>상품 받으시는 분</legend>
 
@@ -215,26 +249,26 @@
 					align="absmiddle" /> <span class="title">상품 받으시는 분</span>
 			</p>
 			<p>
-				<span class="sp1">배송지 선택</span> <input type="radio" name="delivery"
-					id="delivery1" onclick="setAddress()" checked> <label
-					for="delivery1" class="lbl">주문고객과 동일 주소</label> <input type="radio"
-					name="delivery" id="delivery2" onclick="setAddress()"> <label
-					for="delivery2" class="lbl">새로운 주소 입력</label>
+				<span class="sp1">배송지 선택</span> 
+				<input type="radio" name="delivery" id="delivery1" checked> 
+				<label for="delivery1" class="lbl">주문고객과 동일 주소</label> 
+				<input type="radio" name="delivery" id="delivery2" > 
+				<label for="delivery2" class="lbl">새로운 주소 입력</label>
 			</p>
 			<p>
 				<label for="customerName">성명</label> <input type="Text"
-					name="customerName" id="customerName">
+					name="customerName" id="customerName" class="infoBox">
 			</p>
 			<p>
 				<label for="zipcode">주소</label> <input type="Text" name="zipcode"
-					id="zipcode" size="15" title="우편번호"> &nbsp; <input
-					type="Button" value="우편번호찾기" OnClick="getZipcode()" /> <br /> <span
+					id="zipcode" size="15" title="우편번호" class="infoBox"> &nbsp; <input
+					type="Button" value="우편번호찾기" id="btZipcode"/> <br /> <span
 					class="sp1">&nbsp;</span> <input type="Text" name="address"
-					size="60" title="주소"> <br /> <span class="sp1">&nbsp;</span>
-				<input type="Text" name="addressDetail" size="60" title="상세주소">
+					size="60" title="주소" class="infoBox"> <br /> <span class="sp1">&nbsp;</span>
+				<input type="Text" name="addressDetail" size="60" title="상세주소" class="infoBox">
 			</p>
 			<p>
-				<label for="hp">연락처</label> <input type="Text" name="hp" id="hp"
+				<label for="hp">연락처</label> <input type="Text" name="hp" id="hp" class="infoBox"
 					size="17">
 			</p>
 			<p>
@@ -256,7 +290,7 @@
 			</p>
 
 			<!-- 주문 총 금액 hidden field -->
-			<input type="hidden" name="totalPrice" value="">
+			<input type="hidden" name="totalPrice" value="${buyPrice }">
 		</fieldset>
 	</form>
 

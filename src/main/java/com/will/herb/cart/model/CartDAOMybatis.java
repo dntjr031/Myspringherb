@@ -43,6 +43,11 @@ public class CartDAOMybatis implements CartDAO{
 	public int updateCart(CartVO vo) {
 		return sqlSession.update(tablespace+"updateCart",vo);
 	}
+
+	@Override
+	public int deleteCartByUserid(String userid) {
+		return sqlSession.delete(tablespace+"deleteCartByUserid", userid);
+	}
 	
 	
 }

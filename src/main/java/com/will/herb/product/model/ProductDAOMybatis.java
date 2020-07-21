@@ -59,6 +59,7 @@ public class ProductDAOMybatis implements ProductDAO {
 	public int selectEventByPdNo(EventProductVO vo) {
 		return sqlSession.selectOne(namespace+"selectEventForPdNo", vo);
 	}
+
 	
 	
 }

@@ -4,16 +4,22 @@
 
 <style type="text/css">	
 	#info, #desc{
-		width:700px;		
+		width:800px;		
 	}	
 	#viewImg{
 		float:left;
 		padding:10px 30px 30px 30px;
-		width:30%;				
+		width:20%;				
 	}
 	#viewPd{
 		float:left;
+		padding:0 10px 30px 20px;	
+		width: 45%;	
+	}
+	#viewBest{
+		float:left;
 		padding:0 10px 30px 20px;		
+		width: 20%;
 	}
 	#desc{
 		clear:both;
@@ -72,7 +78,6 @@
 		});
 	});
 </script>
-
 <h2>상품 상세 보기</h2>
 <div id="info">
 	<div id="viewImg">
@@ -126,6 +131,11 @@
 				<input type="button" id="cart" value="장바구니담기">
 			</p>
 		</form>
+	</div>
+	<div id="viewBest">
+		<c:import url="/shop/order/best5.do">
+			<c:param name="productNo" value="${vo.productNo }"></c:param>
+		</c:import>
 	</div>
 </div>
 <div id="desc">

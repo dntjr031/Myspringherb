@@ -40,5 +40,10 @@ public class CartServiceImpl implements CartService{
 	public int updateCart(CartVO vo) {
 		return dao.updateCart(vo);
 	}
+
+	@Override
+	public int deleteCartByUserid(String userid) {
+		return dao.deleteCartByUserid(userid);
+	}
 	
 }

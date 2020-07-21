@@ -76,6 +76,7 @@
 		select count(*) from EVENTPRODUCT
 		where eventname=#{eventName} and PRODUCTNO=#{productNo}
 	</select>
+	
 </mapper>
 
 

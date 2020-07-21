@@ -1,17 +1,23 @@
 package com.will.herb.product.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.will.herb.order.model.OrderDAO;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductDAO productDao;
+	
+	@Autowired
+	private OrderDAO orderDao;
 
 	@Override
 	public List<ProductVO> selectEvent(String eventName) {
@@ -84,4 +90,5 @@ public class ProductServiceImpl implements ProductService {
 		
 		return cnt;
 	}
+
 }

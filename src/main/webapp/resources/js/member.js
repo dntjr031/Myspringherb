@@ -58,11 +58,11 @@ $(function(){
 		}
 	});
 	$('#btnZipcode').click(function(){
-		window.open(contextPath + "/zipcode/zipcode.do?currentPage=" + "1", "zip", "height = 500, width = 600, resizable = yes, scrollbar= yes");
+		window.open(contextPath + "/zipcode/zipcode.do?currentPage=" + "1", "zip", "height = 500, width = 600, resizable = yes, location= yes");
 	});
 	$('#btnChkId').click(function(){
 		var userid = $('#userid').val();
-		window.open(contextPath + "/member/checkUserid.do?userid=" + userid, "chk", "height = 300, width = 450, resizable = yes, scrollbar= yes")
+		window.open(contextPath + "/member/checkUserid.do?userid=" + userid, "chk", "height = 300, width = 450, resizable = yes, location= yes")
 	});
 
 });
