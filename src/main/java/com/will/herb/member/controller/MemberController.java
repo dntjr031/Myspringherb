@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.will.herb.member.model.MemberService;
 import com.will.herb.member.model.MemberVO;
@@ -89,6 +90,24 @@ public class MemberController {
 		model.addAttribute("result", result);
 		model.addAttribute("EXIST_ID", MemberService.EXIST_ID);
 		model.addAttribute("NON_EXIST_ID", MemberService.NON_EXIST_ID);
+	}
+	
+	@RequestMapping("/ajaxDupId.do")
+	@ResponseBody
+	public boolean ajaxDupId(@RequestParam String userid) {
+		logger.info("ajax - 아이디 중복확인, 파라미터 userid={}",userid);
+		
+		int check = service.dupUserid(userid);
+		logger.info("ajax - 아이디 중복확인 결과, check={}",check);
+		
+		boolean bool = false;
+		
+		if (check == MemberService.NON_EXIST_ID) {
+			bool = true; // 사용 가능
+		}
+		
+		return bool;
+				
 	}
 	
 	@RequestMapping(value = "/memberEdit.do" , method = RequestMethod.GET)

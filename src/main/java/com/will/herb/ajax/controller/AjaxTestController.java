@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -84,5 +85,43 @@ public class AjaxTestController {
 		}
 		return vo;
 		//{"no":102,"name":"김동율","content":"재미없어요"}
+	}
+	
+	@RequestMapping("/ajaxWrite.do")
+	@ResponseBody
+	public ResultVO ajaxWrite(@ModelAttribute MemoVO memoVo) {
+		logger.info("메모 입력 처리 페이지, 파라미터 memoVo={}",memoVo);
+		
+		memoVo.setNo(100);
+		
+		ResultVO vo = new ResultVO();
+		vo.setData(memoVo);
+		vo.setMessage("데이터 등록 성공");
+		
+		return vo;
+		
+	}
+	
+	@RequestMapping("/ajaxAll.do")
+	@ResponseBody
+	public List<MemoVO> ajaxAll() {
+		logger.info("전체 조회 처리");
+		
+		List<MemoVO> list = new ArrayList<MemoVO>();
+		
+		for (int i = 1; i <= 5; i++) {
+			MemoVO vo = new MemoVO(i, "이름"+i, "내용"+i);
+			
+			list.add(vo);
+		}
+		logger.info("전체 조회 결과 list.size={}",list.size());
+		
+		return list;
+		//[{"no":1,"name":"이름1","content":"내용1"},{"no":2,"name":"이름2","content":"내용2"},{"no":3,"name":"이름3","content":"내용3"},{"no":4,"name":"이름4","content":"내용4"},{"no":5,"name":"이름5","content":"내용5"}]
+	}
+	
+	@RequestMapping("/ajaxTest4.do")
+	public void ajaxTest4() {
+		logger.info("ajaxTest4 페이지 보여주기");
 	}
 }

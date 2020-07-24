@@ -53,6 +53,49 @@
 					$("#result").html(str);
 				}
 			});
+			
+		});
+		
+		$("#frm1").submit(function() {
+			$.ajax({
+				url : '<c:url value="/ajaxTest/ajaxWrite.do" />',
+				type : "post",
+				/* data : {
+					name: $("#name").val(),
+					content: $("#content").val()
+				}, */
+				data : $(this).serializeArray(),
+				dataType: "json",
+				success: function(res) {
+					str = res.message +"<br>";
+					str += "번호 : " + res.data.no + "<br>";
+					str += "이름 : " + res.data.name + "<br>";
+					str += "내용 : " + res.data.content + "<br><br>";
+					$("#result").html(str);
+				}
+			});
+			return false;
+		});
+		
+		$("#btAll").click(function() {
+			//[{"no":1,"name":"이름1","content":"내용1"},{"no":2,"name":"이름2","content":"내용2"},{"no":3,"name":"이름3","content":"내용3"},{"no":4,"name":"이름4","content":"내용4"},{"no":5,"name":"이름5","content":"내용5"}]
+			$.ajax({
+				url: '<c:url value="/ajaxTest/ajaxAll.do" />',
+				dataType: "json",
+				type: "post",
+				success: function(res) {
+					$.each(res, function(idx, item) {
+						var str = "번호 : " + item.no + "<br>";
+						str += "이름 : " + item.name + "<br>";
+						str += "내용 : " + item.content + "<br><br>";
+						if(idx == 0){
+							$("#result").html(str);
+						}else{
+							$("#result").append(str);
+						}
+					});
+				}
+			});
 		});
 	});
 </script>
@@ -60,7 +103,8 @@
 <body>
 	<form id="frm1">
 		번호 : <input type="text" id="no" size="7" /> <input type="button"
-			id="query" value="조회"><br>
+			id="query" value="조회"><br><br>
+			<button type="button" id="btAll">전체 조회</button>
 		<h2>메모를 남기세요</h2>
 		이름 : <input type="text" id="name" name="name" /><br> 메모 : <input
 			type="text" id="content" name="content" size="50" /><br> <input

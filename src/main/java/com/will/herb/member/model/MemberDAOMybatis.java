@@ -17,7 +17,7 @@ public class MemberDAOMybatis implements MemberDAO {
 	}
 	
 	public int dupUserid(String userid) {
-		return sqlSession.selectOne(namespace+"dupUserid", userid);
+		return sqlSession.selectOne(namespace+"selectDup", userid);
 	}
 	
 	public String selectPwd(String userid) {

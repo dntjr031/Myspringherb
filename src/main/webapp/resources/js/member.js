@@ -40,7 +40,7 @@ $(function(){
 		}
 		
 		if($("#chkId").val() != 'Y'){
-			alert("중복확인을 해야합니다.");
+			alert("아이디 중복확인을 해야합니다.");
 			$("#userid").focus();
 			event.preventDefault();
 			return false;

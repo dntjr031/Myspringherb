@@ -11,43 +11,7 @@
 	.width_350{
 		width:350px;
 	}	
-	#error{
-		color: red;
-		font-weight: bold;
-	}
 </style>
-<script type="text/javascript">
-	$(function() {
-	
-		$("#userid").keyup(function() {
-			if($(this).val().length < 4){
-				$("#error").html("아이디는 4글자 이상이어야 합니다.");
-				$("#chkId").val("N");
-			}else if(!validate_userid($(this).val())){
-				$("#error").html("아이디 규칙에 맞지 않습니다.");
-				$("#chkId").val("N");
-			}else{
-				$.ajax({
-					url: "<c:url value='/member/ajaxDupId.do'/>",
-					data: "userid=" + $(this).val(),
-					type: "post",
-					success: function(res) {
-						if(res){
-							$("#chkId").val("Y");
-							$("#error").html("사용 가능한 아이디");
-						}else{
-							$("#chkId").val("N");
-							$("#error").html("이미 등록된 아이디");
-						}
-					},
-					error: function(xhr, status, error) {
-						alert(status + ", " + error);
-					}
-				});
-			}
-		});
-	});
-</script>
 <article>
 <div class="divForm">
 <form name="frm1" method="post" action="<c:url value='/member/memberWrite.do'/>">
@@ -61,7 +25,7 @@
         <label for="userid">회원ID</label>
         <input type="text" name="userid" id="userid" class="necessary"
         		style="ime-mode:inactive">&nbsp;
-        <span id="error"></span>
+        <input type="button" value="중복확인" id="btnChkId" title="새창열림">
     </div>
     <div>
         <label for="pwd">비밀번호</label>
@@ -114,7 +78,7 @@
     </div>
 </fieldset>
 
-    <input type ="hidden" name="chkId" id="chkId">
+    <input type ="text" name="chkId" id="chkId">
         
 </form>
 </div>
